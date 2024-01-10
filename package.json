@@ -32,6 +32,7 @@
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "8.56.0",
+		"@types/node": "^20.10.8",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"eslint": "^8.56.0",
@@ -48,5 +49,9 @@
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@workos-inc/node": "^5.1.0",
+		"jose": "^5.2.0"
+	}
 }
