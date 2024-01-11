@@ -1,1 +1,11 @@
-:)
+<script lang="ts">
+  async function signOut() {
+		console.log('sign out');
+		const response = await fetch('/auth/sign-out', { method: 'POST' });
+		if (response.ok) {
+			window.location.href = '/';
+		}
+	}
+</script>
+
+<button on:click={signOut}>Sign out</button>
