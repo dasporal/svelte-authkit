@@ -2,6 +2,12 @@
 
 Svelte library aimed at helping implement [WorkOS's Authkit](https://www.authkit.com/) and [their User Management service](https://workos.com/docs/user-management) in a Svelte application.
 
+## Installation
+
+```shell
+npm i @dasporal/svelte-authkit
+```
+
 ## Usage
 
 **Environment variables**
@@ -23,7 +29,7 @@ Add the `SvelteAuthKit` component to your root `+layout.svelte` file.
 
 This component will initialize on each app mount to retrieve the user. It will then store the data in the `userStore`, with its property being accessible by importing `import { user, isAuthenticated } from '$lib/stores/userStore';` on the relevant components and pages.
 
-An integration example is available in `src/lib/+page.svelte`.
+The `signIn` and `signOut` functions from `$lib/components/SignInButton.svelte` and `$lib/components/SignOutButton.svelte` can be applied to any custom component you may have, and it is not planned for the moment to provide more beautiful button than already present in the integration example at  [`src/routes/+page.svelte`](./src/routes/+page.svelte).
 
 ## Todo
 

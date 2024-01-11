@@ -1,5 +1,5 @@
-<script lang="ts">
-  async function signIn() {
+<script context="module" lang="ts">
+  export async function signIn() {
 		console.log('sign in');
 		const response = await fetch('/auth');
     console.log(response)
@@ -10,4 +10,4 @@
 	}
 </script>
 
-<button on:click={signIn}>Sign in</button>
+<button on:click={signIn}>Sign in component</button>
