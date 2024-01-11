@@ -6,7 +6,6 @@
 		const response = await fetch('/auth/verify-token', { method: 'POST' });
 		if (response.ok) {
 			const data = await response.json();
-			console.log(data);
 			isAuthenticated.set(data.body.isAuthenticated);
 			user.set(data.body.user);
 		}

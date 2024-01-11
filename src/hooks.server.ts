@@ -3,8 +3,8 @@ import { workos } from '$lib/utils/workos.js'; // Update the path as necessary
 import { WORKOS_CLIENT_ID, WORKOS_REDIRECT_URI, JWT_SECRET_KEY } from '$env/static/private';
 import { SignJWT, jwtVerify } from 'jose';
 
-const clientId = WORKOS_CLIENT_ID;
-const secret = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
+const clientId: string = WORKOS_CLIENT_ID;
+const secret: Uint8Array = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
 
 export async function handle({ event, resolve }) {
 	const url = new URL(event.url);
@@ -21,9 +21,11 @@ export async function handle({ event, resolve }) {
 
 		// Redirect to the authorization URL
 		return new Response(null, {
-			status: 302,
-			headers: { Location: authorizationUrl }
-		});
+      status: 200,
+      headers: {
+        'Location': authorizationUrl
+      }
+    });
 	}
 
 	if (url.pathname === '/auth/callback') {
