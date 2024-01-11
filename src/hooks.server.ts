@@ -1,5 +1,5 @@
 // src/hooks.server.ts
-import { workos } from '$lib/utils/workos.js'; // Update the path as necessary
+import workos from '$lib/utils/workos.js';
 import { WORKOS_CLIENT_ID, WORKOS_REDIRECT_URI, JWT_SECRET_KEY } from '$env/static/private';
 import { SignJWT, jwtVerify } from 'jose';
 

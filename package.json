@@ -1,6 +1,6 @@
 {
 	"name": "@dasporal/svelte-authkit",
-	"version": "1.0.5",
+	"version": "0.1.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
