@@ -1,5 +1,5 @@
 <script context="module">
-	import { signOut } from '$lib/utils/signOut.js';
+	import { signOut } from '$lib/utils/client/auth.js';
 </script>
 
 <button on:click={signOut}>Sign out component</button>
