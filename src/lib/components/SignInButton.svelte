@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-  export async function signIn() {
+	export async function signIn() {
 		console.log('sign in');
 		const response = await fetch('/auth');
-    console.log(response)
-    console.log("Should rediret to: ", response.headers.get('location'))
+		console.log(response);
+		console.log('Should rediret to: ', response.headers.get('location'));
 		if (response.ok && response.headers.get('location')) {
 			window.location.href = response.headers.get('location');
 		}

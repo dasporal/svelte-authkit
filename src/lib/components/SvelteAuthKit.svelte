@@ -11,7 +11,7 @@
 		}
 	}
 
-  onMount(() => {
+	onMount(() => {
 		verifyToken();
 	});
 </script>

@@ -21,11 +21,11 @@ export async function handle({ event, resolve }) {
 
 		// Redirect to the authorization URL
 		return new Response(null, {
-      status: 200,
-      headers: {
-        'Location': authorizationUrl
-      }
-    });
+			status: 200,
+			headers: {
+				Location: authorizationUrl
+			}
+		});
 	}
 
 	if (url.pathname === '/auth/callback') {
