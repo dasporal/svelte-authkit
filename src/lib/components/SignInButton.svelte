@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script context="module">
 	export async function signIn() {
 		console.log('sign in');
 		const response = await fetch('/auth');

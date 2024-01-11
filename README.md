@@ -1,5 +1,8 @@
 # Svelte Authkit
 
+CURRENTLY NOT WORKING AS AN INSTALLED PACKAGE. It is my first one after all. :frowning:
+
+
 Svelte library aimed at helping implement [WorkOS's Authkit](https://www.authkit.com/) and [their User Management service](https://workos.com/docs/user-management) in a Svelte application.
 
 ## Installation
