@@ -2,7 +2,7 @@
 	import SvelteAuthKit from '$lib/components/SvelteAuthKit.svelte';
 	import SignInButton, { signIn } from '$lib/components/SignInButton.svelte';
 	import SignOutButton, { signOut } from '$lib/components/SignOutButton.svelte';
-	import { user, isAuthenticated } from '$lib/stores/userStore';
+	import { user, isAuthenticated } from '$lib/stores/userStore.js';
 
 	$: if ($isAuthenticated) {
 		console.log('User is authenticated', $user);
@@ -14,7 +14,7 @@
 <SvelteAuthKit />
 
 {#if $isAuthenticated}
-	<p>Authenticated as {$user.firstName}</p>
+	<p>Authenticated as {$user ? $user.firstName : ''}</p>
 	<SignOutButton />
 	<br />
 	<br />

@@ -64,6 +64,17 @@ export async function handle({ event, resolve }) {
 	if (url.pathname === '/auth/verify-token') {
 		try {
 			const token = event.cookies.get('token');
+			if (!token) {
+				return new Response(
+					JSON.stringify({
+						status: 401,
+						body: {
+							isAuthenticated: false
+						}
+					})
+				);
+			}
+
 			const verifiedToken = await jwtVerify(token, secret);
 
 			return new Response(
