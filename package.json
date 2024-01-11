@@ -53,5 +53,9 @@
 	"dependencies": {
 		"@workos-inc/node": "^5.1.0",
 		"jose": "^5.2.0"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dasporal/svelte-authkit"
+	},
 }
