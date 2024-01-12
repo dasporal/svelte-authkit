@@ -18,7 +18,7 @@ const config = {
 			// 'components': './src/components',
 			// 'routes': './src/routes',
 			// 'static': './static',
-			$utils: './src/lib/utils/',
+			$utils: './src/lib/utils/'
 		}
 	}
 };

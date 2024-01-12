@@ -30,17 +30,16 @@ Add the `SvelteAuthKit` component to your root `+layout.svelte` file.
 
 This component will initialize on each app mount to retrieve the user. It will then store the data in the `userStore`, with its property being accessible by importing `import { user, isAuthenticated } from '$lib/stores/userStore';` on the relevant components and pages.
 
-The `signIn` and `signOut` functions from `$lib/utils/client/auth.ts` and `$lib/utils/client/auth.ts` can be applied to any custom component you may have, and it is not planned for the moment to provide more beautiful button than already present in the integration example at [`src/routes/+page.svelte`](./src/routes/+page.svelte).
-
+The `signIn` and `signOut` functions from `$lib/utils/client/auth.ts` and `$lib/utils/client/auth.ts` can be applied to any custom Button component you may have, and it is not planned for the moment to provide premade button components. This allows you to implement the library's functionality while using your own design system.
 
 The library expects 4 new routes to be created, for each server function:
+
 - `/auth`: sits at `/src/routes/auth/+server.ts`
 - `/auth/callback`: sits at `/src/routes/auth/callback/+server.ts`
 - `/auth/verify-token`: sits at `/src/routes/auth/verify-token/+server.ts`
 - `/auth/sign-out`: sits at `/src/routes/auth/sign-out/+server.ts`
 
-
-I am currently writing the documentation, but an example of expected setup can be browsed in this repo at `src/routes` 
+An example of expected setup can be browsed in this repo at `src/routes`, with `src/routes/+page.svelte` containing a sign-in and sign-out button, along with conditional rendering, and `src/routes/auth` containing the server routes.
 
 ## Todo
 

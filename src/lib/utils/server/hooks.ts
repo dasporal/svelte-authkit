@@ -1,6 +1,6 @@
 // src/hooks.server.ts
 import { SignJWT, jwtVerify } from 'jose';
-import { WorkOS } from '@workos-inc/node';
+import type { WorkOS } from '@workos-inc/node';
 
 /**
  * Asynchronous function that generates an authorization URL and Response for a WorkOS client.
@@ -113,7 +113,7 @@ export async function AuthkitCallback({
  * @param params.request - The WorkOS client ID.
  * @param params.secret - The instance of the WorkOS object.
  *
- * @returns  A new instance of the Response object. This response contains the verification status and the decoded token.
+ * @returns  A new instance of the Response object. This response contains the verification status and the decoded token if the user is logged in, otherwise it will return isAuthenticated with a false value.
  *
  * @example
  * const response = await AuthkitVerifyToken({
