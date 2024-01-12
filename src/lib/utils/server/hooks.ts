@@ -1,10 +1,6 @@
 // src/hooks.server.ts
 import { SignJWT, jwtVerify } from 'jose';
 
-//const clientId: string = WORKOS_CLIENT_ID;
-
-//const secret: Uint8Array = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
-
 export async function AuthkitSignIn({
 	workOSClientId,
 	workOSRedirectURI,
@@ -17,11 +13,9 @@ export async function AuthkitSignIn({
 	console.log('Authenticating with WorkOS');
 	const authorizationUrl = workos.userManagement.getAuthorizationUrl({
 		provider: 'authkit',
+		clientId: workOSClientId,
 		redirectUri: workOSRedirectURI,
-		workOSClientId
 	});
-
-	console.log('Redirect to auth url', authorizationUrl);
 
 	return new Response(null, {
 		status: 200,
@@ -40,21 +34,24 @@ export async function AuthkitCallback({
 	workOSClientId: string;
 	workos: unknown;
 	secret: Uint8Array;
-	url: string | URL;
+	url: URL;
 }) {
-	url = new URL(url);
 	console.log('Callback from WorkOS');
 	const code = url.searchParams.get('code');
+
 	if (!code) {
+		console.log('No code provided');
 		return new Response('No code provided', { status: 400 });
 	}
 
 	try {
+		console.log(code, workOSClientId);
 		const { user } = await workos.userManagement.authenticateWithCode({
 			code,
-			workOSClientId
+			clientId: workOSClientId
 		});
-
+		console.log("USER")
+		console.log(await user)
 		const token = await new SignJWT({ user })
 			.setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
 			.setIssuedAt()
@@ -71,6 +68,7 @@ export async function AuthkitCallback({
 
 		return response;
 	} catch (error) {
+		console.log(error)
 		return new Response('Authentication failed', { status: 500 });
 	}
 }
