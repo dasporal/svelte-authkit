@@ -47,5 +47,6 @@ I am currently writing the documentation, but an example of expected setup can b
 ## Todo
 
 - Tests
-- Type the variable
+- Type the variables and various linting
 - Write proper documentation
+- Would love to automatically inject the hooks and remove the needs to manually create the endpoints (I tried with a hook.server.ts initially, but Svelte threw errors if the folder and subsequent `+server.ts` weren't created, but that's still something to try and figure out)
