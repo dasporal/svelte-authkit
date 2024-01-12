@@ -3,7 +3,7 @@ import { AuthkitCallback, initWorkOS } from '$utils/server/index.js'; // Should 
 
 const secret: Uint8Array = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
 
-export async function GET({ url }) {
+export async function GET({ url }: { url: URL }) {
 	const workos = initWorkOS(WORKOS_API_KEY);
 
 	return AuthkitCallback({

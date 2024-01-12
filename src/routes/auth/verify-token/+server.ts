@@ -3,7 +3,7 @@ import { AuthkitVerifyToken } from '$utils/server/index.js'; // Should be import
 
 const secret = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
 
-export async function POST({ request }) {
+export async function POST({ request }: { request: Request }) {
 	const response = await AuthkitVerifyToken({
 		request: request,
 		secret: secret
