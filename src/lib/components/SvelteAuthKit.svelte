@@ -3,6 +3,6 @@
 	import { verifyToken } from '$lib/utils/client/auth.js';
 
 	onMount(() => {
-			verifyToken();
+		verifyToken();
 	});
 </script>

@@ -1,2 +1,4 @@
-export { createAuthHook, createCallbackHook, createSignOutHook, createVerifyTokenHook } from "./hooks.js"
-export { initWorkOS } from "./workos.js"
+export {
+	AuthkitSignIn, AuthkitCallback, AuthkitVerifyToken, AuthkitSignOut
+} from './hooks.js';
+export { initWorkOS } from './workos.js';

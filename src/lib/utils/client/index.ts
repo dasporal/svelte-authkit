@@ -1,1 +1,1 @@
-export { signIn, signOut, verifyToken } from "./auth.js"
+export { signIn, signOut, verifyToken } from './auth.js';
