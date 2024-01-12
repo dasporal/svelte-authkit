@@ -1,6 +1,24 @@
 // src/hooks.server.ts
 import { SignJWT, jwtVerify } from 'jose';
+import type { WorkOS } from '@workos-inc/node';
 
+/**
+ * Asynchronous function that generates an authorization URL and Response for a WorkOS client.
+ *
+ * @param params - An object containing the necessary parameters to generate the authorization URL.
+ * @param params.workOSClientId - The WorkOS client ID.
+ * @param params.workOSRedirectURI - The redirect URI after successful authentication.
+ * @param params.workos - The instance of the WorkOS object.
+ *
+ * @returns A new instance of the Response object. This response contains a 200 status and the authorization URL in the "Location" header.
+ *
+ * @example
+ * const response = await AuthkitSignIn({
+ *     workOSClientId: 'your_workos_client_id',
+ *     workOSRedirectURI: 'your_redirect_uri',
+ *     workos: your_workos_instance
+ * });
+ */
 export async function AuthkitSignIn({
 	workOSClientId,
 	workOSRedirectURI,
@@ -8,12 +26,12 @@ export async function AuthkitSignIn({
 }: {
 	workOSClientId: string;
 	workOSRedirectURI: string;
-	workos: unknown;
+	workos: WorkOS;
 }) {
 	const authorizationUrl = workos.userManagement.getAuthorizationUrl({
 		provider: 'authkit',
 		clientId: workOSClientId,
-		redirectUri: workOSRedirectURI,
+		redirectUri: workOSRedirectURI
 	});
 
 	return new Response(null, {
@@ -24,6 +42,25 @@ export async function AuthkitSignIn({
 	});
 }
 
+/**
+ * Asynchronous function that handles the callback from the WorkOS authentication process and returns to the homepage.
+ *
+ * @param params - An object containing the necessary parameters to handle the callback.
+ * @param params.workOSClientId - The WorkOS client ID.
+ * @param params.workos - The instance of the WorkOS object.
+ * @param params.secret - The secret used to sign the JWT.
+ * @param params.url - The URL containing the code parameter.
+ *
+ * @returns  A new instance of the Response object. This response contains a 302 status and the root URL ("/") in the "Location" header.
+ *
+ * @example
+ * const response = await AuthkitCallback({
+ *     workOSClientId: 'env_workos_client_id',
+ *     workos: workos_instance,
+ *     secret: secret,
+ *     url: callback_url
+ * });
+ */
 export async function AuthkitCallback({
 	workOSClientId,
 	workos,
@@ -31,7 +68,7 @@ export async function AuthkitCallback({
 	url
 }: {
 	workOSClientId: string;
-	workos: unknown;
+	workos: WorkOS;
 	secret: Uint8Array;
 	url: URL;
 }) {
@@ -64,11 +101,26 @@ export async function AuthkitCallback({
 
 		return response;
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		return new Response('Authentication failed', { status: 500 });
 	}
 }
 
+/**
+ * Asynchronous function that verifies the stored token containing user inforomations.
+ *
+ * @param params - An object containing the necessary parameters to verify the token.
+ * @param params.request - The WorkOS client ID.
+ * @param params.secret - The instance of the WorkOS object.
+ *
+ * @returns  A new instance of the Response object. This response contains the verification status and the decoded token if the user is logged in, otherwise it will return isAuthenticated with a false value.
+ *
+ * @example
+ * const response = await AuthkitVerifyToken({
+ *     request: request,
+ *     secret: secret
+ * });
+ */
 export async function AuthkitVerifyToken({
 	request,
 	secret
@@ -77,9 +129,17 @@ export async function AuthkitVerifyToken({
 	secret: Uint8Array;
 }) {
 	try {
-		const token = request.headers.get('cookie').split(';').find(c => c.trim().startsWith('token=')).split('=')[1];
-		if (!token) {
-			console.log("No token")
+		const token: string | null = (() => {
+			const cookieHeader = request.headers.get('cookie');
+			if (cookieHeader === null || cookieHeader === undefined) return null;
+
+			const tokenCookie = cookieHeader.split(';').find((c) => c.trim().startsWith('token='));
+			if (tokenCookie === undefined) return null;
+			return tokenCookie.split('=')[1];
+		})();
+
+		if (token === null) {
+			console.log('No token');
 			return new Response(
 				JSON.stringify({
 					status: 401,
@@ -113,6 +173,14 @@ export async function AuthkitVerifyToken({
 	}
 }
 
+/**
+ * Asynchronous function that handles the sign out process from the WorkOS authentication.
+ *
+ * @returns  A new instance of the Response object. This response contains a 302 status and the root URL ("/") in the "Location" header, indicating a successful sign out.
+ *
+ * @example
+ * const response = await AuthkitSignOut();
+ */
 export async function AuthkitSignOut() {
 	try {
 		const headers = new Headers();
