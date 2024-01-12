@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { verifyToken } from '$lib/utils/client/auth.js';
+	import { verifyToken } from '$utils/client/auth'; // Should be imported from '@dasporal/svelte-authkit' in your project
 
 	onMount(() => {
 		verifyToken();

@@ -3,7 +3,7 @@ import {
   WORKOS_API_KEY,
   JWT_SECRET_KEY
 } from '$env/static/private';
-import { AuthkitCallback, initWorkOS } from '@dasporal/svelte-authkit';
+import { AuthkitCallback, initWorkOS } from '$utils/server/index.js'; // Should be imported from '@dasporal/svelte-authkit' in your project
 
 const secret: Uint8Array = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
 
