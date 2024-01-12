@@ -1,16 +1,13 @@
 import { user, isAuthenticated } from '../../stores/userStore.js';
 
 export async function signIn() {
-	console.log('Sign in');
 	const response = await fetch('/auth');
-	console.log('Should redirect to: ', response.headers.get('location'));
 	if (response.ok && response.headers.get('location')) {
 		window.location.href = response.headers.get('location') || '/error';
 	}
 }
 
 export async function signOut() {
-	console.log('sign out');
 	const response = await fetch('/auth/sign-out', { method: 'POST' });
 	if (response.ok) {
 		window.location.href = '/';

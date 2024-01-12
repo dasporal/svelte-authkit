@@ -10,7 +10,6 @@ export async function AuthkitSignIn({
 	workOSRedirectURI: string;
 	workos: unknown;
 }) {
-	console.log('Authenticating with WorkOS');
 	const authorizationUrl = workos.userManagement.getAuthorizationUrl({
 		provider: 'authkit',
 		clientId: workOSClientId,
@@ -36,7 +35,6 @@ export async function AuthkitCallback({
 	secret: Uint8Array;
 	url: URL;
 }) {
-	console.log('Callback from WorkOS');
 	const code = url.searchParams.get('code');
 
 	if (!code) {
@@ -45,13 +43,11 @@ export async function AuthkitCallback({
 	}
 
 	try {
-		console.log(code, workOSClientId);
 		const { user } = await workos.userManagement.authenticateWithCode({
 			code,
 			clientId: workOSClientId
 		});
-		console.log("USER")
-		console.log(await user)
+
 		const token = await new SignJWT({ user })
 			.setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
 			.setIssuedAt()
@@ -80,10 +76,10 @@ export async function AuthkitVerifyToken({
 	request: Request;
 	secret: Uint8Array;
 }) {
-	console.log('verify token');
 	try {
-    const token = request.headers.get('cookie').split(';').find(c => c.trim().startsWith('token='));
+		const token = request.headers.get('cookie').split(';').find(c => c.trim().startsWith('token=')).split('=')[1];
 		if (!token) {
+			console.log("No token")
 			return new Response(
 				JSON.stringify({
 					status: 401,
