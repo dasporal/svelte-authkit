@@ -1,6 +1,7 @@
 // src/hooks.server.ts
 import { SignJWT, jwtVerify } from 'jose';
 import type { WorkOS } from '@workos-inc/node';
+import type { RequestEvent } from '@sveltejs/kit';
 
 /**
  * Asynchronous function that generates an authorization URL and Response for a WorkOS client.
@@ -110,27 +111,27 @@ export async function AuthkitCallback({
  * Asynchronous function that verifies the stored token containing user inforomations.
  *
  * @param params - An object containing the necessary parameters to verify the token.
- * @param params.request - The WorkOS client ID.
+ * @param params.event - The RequestEvent containing the token.
  * @param params.secret - The instance of the WorkOS object.
  *
  * @returns  A new instance of the Response object. This response contains the verification status and the decoded token if the user is logged in, otherwise it will return isAuthenticated with a false value.
  *
  * @example
  * const response = await AuthkitVerifyToken({
- *     request: request,
+ *     event: event,
  *     secret: secret
  * });
  */
 export async function AuthkitVerifyToken({
-	request,
+	event,
 	secret
 }: {
-	request: Request;
+	event: RequestEvent;
 	secret: Uint8Array;
 }) {
 	try {
 		const token: string | null = (() => {
-			const cookieHeader = request.headers.get('cookie');
+			const cookieHeader = event.request.headers.get('cookie');
 			if (cookieHeader === null || cookieHeader === undefined) return null;
 
 			const tokenCookie = cookieHeader.split(';').find((c) => c.trim().startsWith('token='));

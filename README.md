@@ -32,16 +32,15 @@ This component will initialize on each app mount to retrieve the user. It will t
 
 The `signIn` and `signOut` functions from `$lib/utils/client/auth.ts` and `$lib/utils/client/auth.ts` can be applied to any custom Button component you may have, and it is not planned for the moment to provide premade button components. This allows you to implement the library's functionality while using your own design system.
 
-The library expects 4 new routes to be created, for each server function:
+The library will listen to 4 new routes:
 
-- `/auth`: sits at `/src/routes/auth/+server.ts`
-- `/auth/callback`: sits at `/src/routes/auth/callback/+server.ts`
-- `/auth/verify-token`: sits at `/src/routes/auth/verify-token/+server.ts`
-- `/auth/sign-out`: sits at `/src/routes/auth/sign-out/+server.ts`
+- `/auth`
+- `/auth/callback`
+- `/auth/verify-token`
+- `/auth/sign-out`
 
-An example of expected setup can be browsed in this repo at `src/routes`, with `src/routes/+page.svelte` containing a sign-in and sign-out button, along with conditional rendering, and `src/routes/auth` containing the server routes.
+An example of expected setup can be browsed in this repo at `src/routes`, with `src/routes/+page.svelte` containing a sign-in and sign-out button, along with conditional rendering, and `src/hooks.server.ts` containing the logic to handle the requests.
 
 ## Todo
 
 - Tests
-- Would love to automatically inject the hooks and remove the needs to manually create the endpoints (I tried with a hook.server.ts initially, but Svelte threw errors if the folder and subsequent `+server.ts` weren't created, but that's still something to try and figure out)
