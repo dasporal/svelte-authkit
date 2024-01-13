@@ -14,12 +14,17 @@ import {
 import {
 	initWorkOS
 } from '$utils/server/workos.js';
+import type { MaybePromise, RequestEvent, ResolveOptions } from '@sveltejs/kit';
 
 const secret: Uint8Array = new Uint8Array(Buffer.from(JWT_SECRET_KEY, 'base64'));
 const workos = initWorkOS(WORKOS_API_KEY);
 
 /** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
+export async function handle({ event, resolve }:
+	{
+		event: RequestEvent;
+		resolve: (event: RequestEvent<Partial<Record<string, string>>, string | null>, opts?: ResolveOptions | undefined) => MaybePromise<Response>;
+	}) {
 	if (event.url.pathname.startsWith('/auth/verify-token')) {
     console.log("Checking token")
 		const response = await AuthkitVerifyToken({
